@@ -1,1 +1,8 @@
-# applied-mathematics
+# Прикладная математика ✅
+
+<details>
+<summary>Список лабораторных работ</summary>
+
+[Лабораторная работа 1](https://github.com/Guslik5/applied-mathematics/tree/lab1/lab_1)
+
+</details>
