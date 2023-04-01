@@ -17,10 +17,10 @@ def dg(x):
 
 # определим функции для интегралов
 def f2(x):
-    return x**2
+    return x
 
 def g2(x):
-    return x**3
+    return x**2
 
 # определяем функции для вычисления численных производных
 def left_diff(f, x, h):
@@ -191,7 +191,7 @@ for n in n_values:
     integral_x = simpson_method(f2, a, b, n)
     print("Определенный интеграл для функции x на отрезке [0;1]:", integral_x)
     # Сравниваем с аналитическим ответом
-    analytic_x = 1/3
+    analytic_x = 1/2
     difference_x_simpson = np.sqrt(np.mean((integral_x - analytic_x) ** 2))
     print("Разность с аналитическим ответом:", difference_x_simpson)
 
@@ -200,7 +200,7 @@ for n in n_values:
     integral_x2 = simpson_method(g2, a, b, n)
     print("Определенный интеграл для функции x^2 на отрезке [0;1]:", integral_x2)
     # Сравниваем с аналитическим ответом
-    analytic_x2 = 1/4
+    analytic_x2 = 1/3
     difference_x2_simpson = np.sqrt(np.mean((integral_x2 - analytic_x2) ** 2))
     print("Разность с аналитическим ответом:", difference_x2_simpson)
 
@@ -209,7 +209,7 @@ for n in n_values:
     integral_x = trapezoidal_rule(f2, a, b, n)
     print("Определенный интеграл для функции x на отрезке [0;1]:", integral_x)
     # Сравниваем с аналитическим ответом
-    analytic_x = 1/3
+    analytic_x = 1/2
     difference_x_trap = np.sqrt(np.mean((integral_x - analytic_x) ** 2))
     print("Разность с аналитическим ответом:", difference_x_trap)
 
@@ -217,7 +217,7 @@ for n in n_values:
     integral_x2 = trapezoidal_rule(g2, a, b, n)
     print("Определенный интеграл для функции x^2 на отрезке [0;1]:", integral_x2)
     # Сравниваем с аналитическим ответом
-    analytic_x2 = 1/4
+    analytic_x2 = 1/3
     difference_x2_trap = np.sqrt(np.mean((integral_x2 - analytic_x2) ** 2))
     print("Разность с аналитическим ответом:", difference_x2_trap)
 
@@ -227,7 +227,7 @@ for n in n_values:
     integral_x = midpoint_rectangle_method(f2, a, b, n)
     print("Определенный интеграл для функции x на отрезке [0;1]:", integral_x)
     # Сравниваем с аналитическим ответом
-    analytic_x = 1/3
+    analytic_x = 1/2
     difference_x_mid = np.sqrt(np.mean((integral_x - analytic_x) ** 2))
     print("Разность с аналитическим ответом:", difference_x_mid)
 
@@ -235,7 +235,7 @@ for n in n_values:
     integral_x2 = midpoint_rectangle_method(g2, a, b, n)
     print("Определенный интеграл для функции x^2 на отрезке [0;1]:", integral_x2)
     # Сравниваем с аналитическим ответом
-    analytic_x2 = 1/4
+    analytic_x2 = 1/3
     difference_x2_mid = np.sqrt(np.mean((integral_x2 - analytic_x2) ** 2))
     print("Разность с аналитическим ответом:", difference_x2_mid)
 
@@ -244,7 +244,7 @@ for n in n_values:
     integral_x = right_rectangle_method(f2, a, b, n)
     print("Определенный интеграл для функции x на отрезке [0;1]:", integral_x)
     # Сравниваем с аналитическим ответом
-    analytic_x = 1/3
+    analytic_x = 1/2
     difference_x_right = np.sqrt(np.mean((integral_x - analytic_x) ** 2))
     print("Разность с аналитическим ответом:", difference_x_right)
 
@@ -252,7 +252,7 @@ for n in n_values:
     integral_x2 = right_rectangle_method(g2, a, b, n)
     print("Определенный интеграл для функции x^2 на отрезке [0;1]:", integral_x2)
     # Сравниваем с аналитическим ответом
-    analytic_x2 = 1/4
+    analytic_x2 = 1/3
     difference_x2_right = np.sqrt(np.mean((integral_x2 - analytic_x2) ** 2))
     print("Разность с аналитическим ответом:", difference_x2_right)
 
@@ -261,7 +261,7 @@ for n in n_values:
     integral_x = left_rectangle_method(f2, a, b, n)
     print("Определенный интеграл для функции x на отрезке [0;1]:", integral_x)
     # Сравниваем с аналитическим ответом
-    analytic_x = 1/3
+    analytic_x = 1/2
     difference_x_left = np.sqrt(np.mean((integral_x - analytic_x) ** 2))
     print("Разность с аналитическим ответом:", difference_x_left)
 
@@ -269,7 +269,7 @@ for n in n_values:
     integral_x2 = left_rectangle_method(g2, a, b, n)
     print("Определенный интеграл для функции x^2 на отрезке [0;1]:", integral_x2)
     # Сравниваем с аналитическим ответом
-    analytic_x2 = 1/4
+    analytic_x2 = 1/3
     difference_x2_left = np.sqrt(np.mean((integral_x2 - analytic_x2) ** 2))
     print("Разность с аналитическим ответом:", difference_x2_left)
 
