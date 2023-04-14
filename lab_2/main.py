@@ -1,20 +1,18 @@
 import math
+import functools
 import numpy as np
 
 
 def f(x):
-    """
-    Функция, которую нужно минимизировать.
-    """
     return math.log(x**2) + 1 - math.sin(x)
 def dichotomy_method(f, a, b, eps):
     """
     Метод дихотомии для минимизации функции.
-    :param f: функция, которую нужно минимизировать
-    :param a: начальная левая граница интервала
-    :param b: начальная правая граница интервала
-    :param eps: точность вычислений
-    :return: точка минимума функции
+    f: функция, которую нужно минимизировать
+    a: начальная левая граница интервала
+    b: начальная правая граница интервала
+    eps: точность вычислений
+    return: точка минимума функции
     """
     while abs(b - a) > eps:
         x = (a + b) / 2
@@ -99,7 +97,7 @@ def parabola_search(f, x1, x2, x3, eps):
                 f1, f2, f3 = fu, f2, f3
     return (x1 + x3) / 2
 
-def brent(f, a, b, tol=1e-5, max_iter=500):
+def brent(f, a, b, tol, max_iter):
     golden_ratio = (3 - math.sqrt(5)) / 2
     x = w = v = a + golden_ratio * (b - a)
     fx = fw = fv = f(x)
@@ -163,18 +161,60 @@ def brent(f, a, b, tol=1e-5, max_iter=500):
 
     return x, fx
 
+
+def count_calls(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        wrapper.calls += 1
+        return func(*args, **kwargs)
+    wrapper.calls = 0
+    return wrapper
+
+f_counted = count_calls(f)
+
+def test_method(method, name, *args, **kwargs):
+    f_counted.calls = 0
+    result = method(f_counted, *args, **kwargs)
+    print(f"{name}: iterations = {method.__name__.count}, function calls = {f_counted.calls}")
+
+
 # Задаем начальный интервал и точность вычислений
 a = 12
 b = 16
 eps = 1e-6
 n = 1000
+brent_x_min, brent_f_min = brent(f, a, b, eps, n) # метод брента
 
 # Выводим результат
 print("Минимум функции по методу дихотомии y=ln(x^2)+1-sin(x) достигается в точке x =", dichotomy_method(f, a, b, eps))
 print("Минимум функции по методу золотого сечения y=ln(x^2)+1-sin(x) достигается в точке x =", golden_section_method(f, a, b, eps))
 print("Минимум функции по методу Фибоначчи y=ln(x^2)+1-sin(x) достигается в точке x =", fibonacci_method(f, a, b, n))
 print("Минимум функции по методу парабол y=ln(x^2)+1-sin(x) достигается в точке x =", parabola_search(f, a, (a+b)/2, b, eps))
+print(f"Минимум функции по методу Брента y=ln(x^2)+1-sin(x) достигается в точке x = {brent_x_min}, значение функции в этой точке: {brent_f_min}")
 
-x_min, f_min = brent(f, a, b)
-print(f"Локальный минимум функции находится в точке x = {x_min}, значение функции в этой точке: {f_min}")
+# Второе задание:
+
+eps_list = [1e-2, 1e-4, 1e-6]
+methods = [
+    (dichotomy_method, "Dichotomy method"),
+    (golden_section_method, "Golden section method"),
+    (fibonacci_method, "Fibonacci method"),
+    (parabola_search, "Parabola search"),
+    (brent, "Brent's method")
+]
+
+for eps in eps_list:
+    print(f"eps = {eps}:")
+    for method, name in methods:
+        if method == fibonacci_method:
+            n = 30
+            test_method(method, name, a, b, n)
+        elif method == parabola_search:
+            x1, x2, x3 = a, (a + b) / 2, b
+            test_method(method, name, x1, x2, x3, eps)
+        else:
+            test_method(method, name, a, b, eps)
+    print()
+
+
 
