@@ -5,6 +5,14 @@ import numpy as np
 
 def f(x):
     return math.log(x**2) + 1 - math.sin(x)
+
+def k(x):
+    """
+    Функция, которую нужно минимизировать.
+    """
+    return x**4 - 10*x**3 + 31*x**2 - 30*x + 9
+def g(x):
+    return np.sin(x) + np.cos(x)
 def dichotomy_method(f, a, b, eps):
     """
     Метод дихотомии для минимизации функции.
@@ -162,20 +170,6 @@ def brent(f, a, b, tol, max_iter):
     return x, fx
 
 
-def count_calls(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        wrapper.calls += 1
-        return func(*args, **kwargs)
-    wrapper.calls = 0
-    return wrapper
-
-f_counted = count_calls(f)
-
-def test_method(method, name, *args, **kwargs):
-    f_counted.calls = 0
-    result = method(f_counted, *args, **kwargs)
-    print(f"{name}: iterations = {method.__name__.count}, function calls = {f_counted.calls}")
 
 
 # Задаем начальный интервал и точность вычислений
@@ -194,27 +188,23 @@ print(f"Минимум функции по методу Брента y=ln(x^2)+1
 
 # Второе задание:
 
-eps_list = [1e-2, 1e-4, 1e-6]
-methods = [
-    (dichotomy_method, "Dichotomy method"),
-    (golden_section_method, "Golden section method"),
-    (fibonacci_method, "Fibonacci method"),
-    (parabola_search, "Parabola search"),
-    (brent, "Brent's method")
-]
 
-for eps in eps_list:
-    print(f"eps = {eps}:")
-    for method, name in methods:
-        if method == fibonacci_method:
-            n = 30
-            test_method(method, name, a, b, n)
-        elif method == parabola_search:
-            x1, x2, x3 = a, (a + b) / 2, b
-            test_method(method, name, x1, x2, x3, eps)
-        else:
-            test_method(method, name, a, b, eps)
-    print()
+# третья таска
+
+# Задаем новый начальный интервал и точность вычислений
+
+# Выводим результат
+print("Минимум функции y=x^4 - 10x^3 + 31x^2 - 30x + 9 при методе дихотомии", dichotomy_method(k, a, b, eps))
+print("Минимум функции y=x^4 - 10x^3 + 31x^2 - 30x + 9 при методе золотого сечения", golden_section_method(k, a, b, eps))
+print("Минимум функции y=x^4 - 10x^3 + 31x^2 - 30x + 9 при методе Фибоначчи", fibonacci_method(k, a, b, n))
+print("Минимум функции y=x^4 - 10x^3 + 31x^2 - 30x + 9 при методе парабол", parabola_search(k, a, (a+b)/2, b, eps))
+print("Минимум функции y=x^4 - 10x^3 + 31x^2 - 30x + 9 при методе Брента", brent(k, a, b, eps, n))
+
+print("Минимум функции y=sin(x)+cos(x) при методе дихотомии", dichotomy_method(g, a, b, eps))
+print("Минимум функции y=sin(x)+cos(x) при методе золотого сечения", golden_section_method(g, a, b, eps))
+print("Минимум функции y=sin(x)+cos(x) при методе Фибоначчи", fibonacci_method(g, a, b, n))
+print("Минимум функции y=sin(x)+cos(x) при методе парабол", parabola_search(g, a, (a+b)/2, b, eps))
+print("Минимум функции y=sin(x)+cos(x) при методе Брента", brent(g, a, b, eps, n))
 
 
 
